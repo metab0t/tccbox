@@ -2,6 +2,22 @@ from setuptools import setup
 import os, datetime, subprocess
 import shutil
 
+from wheel.bdist_wheel import bdist_wheel as _bdist_wheel
+
+
+class genericpy_bdist_wheel(_bdist_wheel):
+    def finalize_options(self):
+        _bdist_wheel.finalize_options(self)
+        self.root_is_pure = False
+
+    def get_tag(self):
+        python, abi, plat = _bdist_wheel.get_tag(self)
+        python, abi = "py3", "none"
+        return python, abi, plat
+
+
+cmdclass = {"bdist_wheel": genericpy_bdist_wheel}
+
 
 # cd to `tinycc` directory and build tinycc
 # For *nix
@@ -49,6 +65,7 @@ def build_tinycc():
         subprocess.run(["make", 'CFLAGS="-fPIC"'], cwd=tinycc_dir, check=True)
         subprocess.run(["make", "install"], cwd=tinycc_dir, check=True)
 
+
 build_tinycc()
 
 this_directory = os.path.abspath(os.path.dirname(__file__))
@@ -79,6 +96,7 @@ with TemporaryDirectory() as temp_dir:
     setup(
         name="tccbox",
         version=version,
+        cmdclass=cmdclass,
         author="Yue Yang",
         author_email="metab0t@outlook.com",
         description="tccbox: pack platform specific tiny c compiler",
