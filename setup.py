@@ -73,6 +73,14 @@ this_directory = os.path.abspath(os.path.dirname(__file__))
 # get current utc date and set the version to YYYY.MM.DD
 version = datetime.datetime.utcnow().strftime("%Y.%m.%d")
 
+long_description = """
+tccbox is a python package that packs tiny c compiler for different platforms.
+
+It uses the active branch at https://repo.or.cz/tinycc.git to build and release new versions.
+
+Please visit the [repo](https://github.com/metab0t/tccbox) for more information.
+"""
+
 from tempfile import TemporaryDirectory
 
 with TemporaryDirectory() as temp_dir:
@@ -99,7 +107,10 @@ with TemporaryDirectory() as temp_dir:
         cmdclass=cmdclass,
         author="Yue Yang",
         author_email="metab0t@outlook.com",
+        url="https://github.com/metab0t/tccbox",
         description="tccbox: pack platform specific tiny c compiler",
+        long_description=long_description,
+        long_description_content_type="text/markdown",
         license="LGPL",
         packages=["tccbox"],
         zip_safe=False,
