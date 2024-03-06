@@ -1,5 +1,7 @@
 # Tccbox
 
+[![](https://img.shields.io/pypi/v/tccbox.svg?color=brightgreen)](https://pypi.org/pypi/tccbox/)
+
 Tccbox is a simple and easy way to install the Tiny C Compiler (TCC) on your system.
 
 It uses the `mob` branch at https://repo.or.cz/tinycc.git to build and release the latest version.
