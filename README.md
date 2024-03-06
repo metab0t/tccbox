@@ -20,3 +20,17 @@ Usage: tcc [options...] [-o outfile] [-c] infile(s)...
 ...
 ...
 ```
+
+It includes a fully-featured distribution of TCC, including the `tcc` command-line tool, the `libtcc` library and the `libtcc.h` header file.
+
+Their paths can be found using the `tccbox` module:
+
+```python
+>>> import tccbox
+>>> tccbox.tcc_bin_path()
+'D:\\mambaforge\\Lib\\site-packages\\tccbox\\tcc_dist\\tcc.exe'
+>>> tccbox.tcc_lib_dir() 
+'D:\\mambaforge\\Lib\\site-packages\\tccbox\\tcc_dist'
+>>> tccbox.tcc_include_dir()    
+'D:\\mambaforge\\Lib\\site-packages\\tccbox\\tcc_dist\\libtcc'
+```
