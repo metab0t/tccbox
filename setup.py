@@ -39,7 +39,7 @@ def build_tinycc():
     # if tinycc dir does not exist, clone it
     if not os.path.exists(tinycc_dir):
         subprocess.run(
-            ["git", "clone", "git://repo.or.cz/tinycc.git"],
+            ["git", "clone", "--depth", "1", "git://repo.or.cz/tinycc.git"],
             cwd=this_directory,
             check=True,
         )
@@ -74,7 +74,7 @@ build_tinycc()
 this_directory = os.path.abspath(os.path.dirname(__file__))
 
 # get current utc date and set the version to YYYY.MM.DD
-version = datetime.datetime.utcnow().strftime("%Y.%m.%d")
+version = datetime.datetime.now(datetime.timezone.utc).strftime("%Y.%m.%d")
 
 long_description = """
 tccbox is a python package that packs tiny c compiler for different platforms.
