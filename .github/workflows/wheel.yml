@@ -20,7 +20,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-12, macos-14]
+        include:
+          - os: ubuntu-latest
+            arch: native
+          - os: ubuntu-24.04-arm
+            arch: native
+          - os: windows-latest
+            arch: native
+          - os: macos-13
+            arch: native
+          - os: macos-14
+            arch: native
 
     steps:
       - uses: actions/checkout@v4
@@ -32,10 +42,11 @@ jobs:
         uses: pypa/cibuildwheel@v2.22.0
         env:
           # Select wheels
-          CIBW_BUILD: "cp311-manylinux_x86_64 cp311-win_amd64 cp311-macosx_x86_64 cp311-macosx_arm64"
-          CIBW_ARCHS: "native"
+          CIBW_BUILD: "cp311-manylinux_x86_64 cp311-manylinux_aarch64 cp311-win_amd64 cp311-macosx_x86_64 cp311-macosx_arm64"
+          CIBW_ARCHS: "${{ matrix.arch }}"
           # use manylinux2014
-          CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
+          CIBW_MANYLINUX_X86_64_IMAGE: "quay.io/pypa/manylinux2014_x86_64"
+          CIBW_MANYLINUX_AARCH64_IMAGE: "quay.io/pypa/manylinux2014_aarch64"
           CIBW_REPAIR_WHEEL_COMMAND_LINUX: ""
           CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""
           CIBW_TEST_COMMAND: "python -m tccbox"
