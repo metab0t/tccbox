@@ -39,7 +39,7 @@ jobs:
         if: matrix.os == 'windows-latest'
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.23.0
+        uses: pypa/cibuildwheel@v2.23.1
         env:
           # Select wheels
           CIBW_BUILD: "cp311-manylinux_x86_64 cp311-manylinux_aarch64 cp311-win_amd64 cp311-macosx_x86_64 cp311-macosx_arm64"
